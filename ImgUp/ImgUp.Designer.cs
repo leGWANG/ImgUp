@@ -61,7 +61,7 @@ namespace ImgUp
             this.ImgUp_lb.Location = new System.Drawing.Point(42, 110);
             this.ImgUp_lb.Name = "ImgUp_lb";
             this.ImgUp_lb.Size = new System.Drawing.Size(95, 15);
-            this.ImgUp_lb.TabIndex = 1;
+            this.ImgUp_lb.TabIndex = 0;
             this.ImgUp_lb.Text = "ImgUp (v1.0)";
             this.ImgUp_lb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -72,7 +72,7 @@ namespace ImgUp
             this.ImgUp_lnklb.Location = new System.Drawing.Point(70, 135);
             this.ImgUp_lnklb.Name = "ImgUp_lnklb";
             this.ImgUp_lnklb.Size = new System.Drawing.Size(43, 13);
-            this.ImgUp_lnklb.TabIndex = 2;
+            this.ImgUp_lnklb.TabIndex = 1;
             this.ImgUp_lnklb.TabStop = true;
             this.ImgUp_lnklb.Text = "Github";
             this.ImgUp_lnklb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
