@@ -35,11 +35,19 @@ namespace ImgUp
             this.ImgUp_pb = new System.Windows.Forms.PictureBox();
             this.ImgUp_lb = new System.Windows.Forms.Label();
             this.ImgUp_lnklb = new System.Windows.Forms.LinkLabel();
+            this.notifyIcon_cms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cms_save = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cms_hk = new System.Windows.Forms.ToolStripMenuItem();
+            this.cms_exit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ImgUp_pb)).BeginInit();
+            this.notifyIcon_cms.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
             // 
+            this.notifyIcon.ContextMenuStrip = this.notifyIcon_cms;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "notifyIcon";
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
@@ -78,6 +86,46 @@ namespace ImgUp
             this.ImgUp_lnklb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ImgUp_lnklb.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ImgUp_lnklb_LinkClicked);
             // 
+            // notifyIcon_cms
+            // 
+            this.notifyIcon_cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cms_save,
+            this.toolStripSeparator1,
+            this.cms_hk,
+            this.toolStripSeparator2,
+            this.cms_exit});
+            this.notifyIcon_cms.Name = "notifyIcon_cms";
+            this.notifyIcon_cms.Size = new System.Drawing.Size(114, 82);
+            this.notifyIcon_cms.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.notifyIcon_cms_ItemClicked);
+            // 
+            // cms_save
+            // 
+            this.cms_save.Name = "cms_save";
+            this.cms_save.Size = new System.Drawing.Size(113, 22);
+            this.cms_save.Text = "Save";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+            // 
+            // cms_hk
+            // 
+            this.cms_hk.Name = "cms_hk";
+            this.cms_hk.Size = new System.Drawing.Size(113, 22);
+            this.cms_hk.Text = "HotKey";
+            // 
+            // cms_exit
+            // 
+            this.cms_exit.Name = "cms_exit";
+            this.cms_exit.Size = new System.Drawing.Size(113, 22);
+            this.cms_exit.Text = "Exit";
+            // 
             // ImgUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -94,6 +142,7 @@ namespace ImgUp
             this.Load += new System.EventHandler(this.ImgUp_Load);
             this.Resize += new System.EventHandler(this.ImgUp_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.ImgUp_pb)).EndInit();
+            this.notifyIcon_cms.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,6 +154,12 @@ namespace ImgUp
         private System.Windows.Forms.PictureBox ImgUp_pb;
         private System.Windows.Forms.Label ImgUp_lb;
         private System.Windows.Forms.LinkLabel ImgUp_lnklb;
+        private System.Windows.Forms.ContextMenuStrip notifyIcon_cms;
+        private System.Windows.Forms.ToolStripMenuItem cms_save;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem cms_hk;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem cms_exit;
     }
 }
 

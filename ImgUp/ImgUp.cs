@@ -17,10 +17,29 @@ namespace ImgUp
     {
         private const int GHKS_MAX = 10;
         private GlobalHotkey[] ghks;
+        private MemoForm memoForm;
+        
 
         public ImgUp()
         {
             InitializeComponent();
+        }
+        private void memoForm_test()
+        {
+            if (memoForm == null)
+            {
+                Console.WriteLine("new");
+                memoForm = new MemoForm();
+                Image image = new Bitmap(@"C:\Users\GWANG\source\repos\bg.png");
+                memoForm.BackgroundImage = image;
+                memoForm.Width = image.Width;
+                memoForm.Height = image.Height;
+            }
+            else
+            {
+                Console.WriteLine("else");
+            }
+            memoForm.Show();
         }
         protected override void WndProc(ref Message m)
         {
@@ -37,6 +56,7 @@ namespace ImgUp
 
                     case Keys.D1:
                         Console.WriteLine(key);
+                        memoForm_test();
                         break;
 
                     case Keys.D2:
@@ -115,6 +135,43 @@ namespace ImgUp
         private void ImgUp_lnklb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/leGWANG/ImgUp");
+        }
+        private void cms_save_clicked()
+        {
+
+        }
+        private void cms_hk_clicked()
+        {
+
+        }
+        private void cms_exit_clicked()
+        {
+            this.Close();
+        }
+        private void notifyIcon_cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string clickedItem = e.ClickedItem.ToString();
+            switch (clickedItem)
+            {
+                case "Save":
+                    Console.WriteLine(clickedItem);
+                    cms_save_clicked();
+                    break;
+
+                case "HotKey":
+                    Console.WriteLine(clickedItem);
+                    cms_hk_clicked();
+                    break;
+
+                case "Exit":
+                    Console.WriteLine(clickedItem);
+                    cms_exit_clicked();
+                    break;
+
+                default:
+                    break;
+            }
+            
         }
     }
 }
