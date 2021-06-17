@@ -34,14 +34,17 @@ namespace ImgUp
             this.hWnd = form.Handle;
             id = GetHashCode();
         }
+
         public bool Register()
         {
             return RegisterHotKey(hWnd, id, modifier, key);
         }
+
         public bool Unregiser()
         {
             return UnregisterHotKey(hWnd, id);
         }
+
         public override int GetHashCode()
         {
             return modifier ^ key ^ hWnd.ToInt32();

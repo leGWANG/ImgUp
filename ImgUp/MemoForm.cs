@@ -1,25 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ImgUp
 {
     public partial class MemoForm : Form
     {
-        bool On;
-        Point Pos;
+        const int RESIZE_HANDLE_SIZE = 10;
+        const int WM_NCHITTEST = 0x0084;
+        IntPtr HTBOTTOMRIGHT = (IntPtr)17;
+        IntPtr HTCAPTION = (IntPtr)2;
+
         public MemoForm()
         {
             InitializeComponent();
-            MouseDown += (o, e) => { if (e.Button == MouseButtons.Left) { On = true; Pos = e.Location; } };
-            MouseMove += (o, e) => { if (On) Location = new Point(Location.X + (e.X - Pos.X), Location.Y + (e.Y - Pos.Y)); };
-            MouseUp += (o, e) => { if (e.Button == MouseButtons.Left) { On = false; Pos = e.Location; } };
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            // Sent to a window in order to determine what part of the window corresponds to a particular screen coordinate. (WM_NCHITTEST 0x0084)
+            if (m.Msg == WM_NCHITTEST) 
+            {
+                if ((int)m.Result == 0x01/*HTCLIENT*/)
+                {
+                    Point screenPoint = new Point(m.LParam.ToInt32());
+                    Point clientPoint = this.PointToClient(screenPoint);
+
+                    if (clientPoint.X >= Size.Width - RESIZE_HANDLE_SIZE && clientPoint.Y >= Size.Height - RESIZE_HANDLE_SIZE)
+                    {
+                        m.Result = HTBOTTOMRIGHT;
+                    }
+                    else
+                    {
+                        m.Result = HTCAPTION;
+                    }
+                }
+            }
+            
         }
     }
 }
