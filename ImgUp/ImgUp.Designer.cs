@@ -33,11 +33,11 @@ namespace ImgUp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImgUp));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIcon_cms = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cms_save = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainFormCmsItem_save = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.cms_hk = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainFormCmsItem_hotkey = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.cms_exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainFormCmsItem_exit = new System.Windows.Forms.ToolStripMenuItem();
             this.ImgUp_pb = new System.Windows.Forms.PictureBox();
             this.ImgUp_lb = new System.Windows.Forms.Label();
             this.ImgUp_lnklb = new System.Windows.Forms.LinkLabel();
@@ -55,42 +55,42 @@ namespace ImgUp
             // notifyIcon_cms
             // 
             this.notifyIcon_cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cms_save,
+            this.mainFormCmsItem_save,
             this.toolStripSeparator1,
-            this.cms_hk,
+            this.mainFormCmsItem_hotkey,
             this.toolStripSeparator2,
-            this.cms_exit});
+            this.mainFormCmsItem_exit});
             this.notifyIcon_cms.Name = "notifyIcon_cms";
-            this.notifyIcon_cms.Size = new System.Drawing.Size(114, 82);
+            this.notifyIcon_cms.Size = new System.Drawing.Size(181, 104);
             this.notifyIcon_cms.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.notifyIcon_cms_ItemClicked);
             // 
-            // cms_save
+            // mainFormCmsItem_save
             // 
-            this.cms_save.Name = "cms_save";
-            this.cms_save.Size = new System.Drawing.Size(113, 22);
-            this.cms_save.Text = "Save";
+            this.mainFormCmsItem_save.Name = "mainFormCmsItem_save";
+            this.mainFormCmsItem_save.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_save.Text = "Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // cms_hk
+            // mainFormCmsItem_hotkey
             // 
-            this.cms_hk.Name = "cms_hk";
-            this.cms_hk.Size = new System.Drawing.Size(113, 22);
-            this.cms_hk.Text = "HotKey";
+            this.mainFormCmsItem_hotkey.Name = "mainFormCmsItem_hotkey";
+            this.mainFormCmsItem_hotkey.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_hotkey.Text = "HotKey";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
-            // cms_exit
+            // mainFormCmsItem_exit
             // 
-            this.cms_exit.Name = "cms_exit";
-            this.cms_exit.Size = new System.Drawing.Size(113, 22);
-            this.cms_exit.Text = "Exit";
+            this.mainFormCmsItem_exit.Name = "mainFormCmsItem_exit";
+            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_exit.Text = "Exit";
             // 
             // ImgUp_pb
             // 
@@ -156,11 +156,11 @@ namespace ImgUp
         private System.Windows.Forms.Label ImgUp_lb;
         private System.Windows.Forms.LinkLabel ImgUp_lnklb;
         private System.Windows.Forms.ContextMenuStrip notifyIcon_cms;
-        private System.Windows.Forms.ToolStripMenuItem cms_save;
+        private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_save;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem cms_hk;
+        private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_hotkey;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem cms_exit;
+        private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_exit;
     }
 }
 

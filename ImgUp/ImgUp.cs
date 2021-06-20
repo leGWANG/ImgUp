@@ -9,7 +9,6 @@ namespace ImgUp
         private const int GHKS_MAX = 10;
         private const int MEMO_MAX = 10;
         private GlobalHotkey[] ghks;
-        private MemoForm[] memoForm;
         
         public ImgUp()
         {
@@ -18,21 +17,21 @@ namespace ImgUp
 
         private void memoForm_Load(int key)
         {
-            int index = key - (int)Keys.D0;
-            if (memoForm[index] == null)
+            Image image = Clipboard.GetImage();
+
+            if (image != null)
             {
-                Console.WriteLine("new");
-                memoForm[index] = new MemoForm();
-                Image image = new Bitmap(@"C:\Users\GWANG\source\repos\bg.png");
-                memoForm[index].BackgroundImage = image;
-                memoForm[index].Width = image.Width;
-                memoForm[index].Height = image.Height;
+                int index = key - (int)Keys.D0;
+                MemoForm mf = Variables.GetMemo(index);
+
+                if (mf.BackgroundImage != null) mf.BackgroundImage.Dispose();
+
+                mf.BackgroundImage = image;
+                mf.Width = image.Width;
+                mf.Height = image.Height;
+
+                if (!mf.Visible) mf.Show();
             }
-            else
-            {
-                Console.WriteLine("else");
-            }
-            memoForm[index].Show();
         }
 
         protected override void WndProc(ref Message m)
@@ -50,15 +49,15 @@ namespace ImgUp
 
         private void ImgUp_Load(object sender, EventArgs e)
         {
-            // register hotkeys
+            // Register hotkeys
             ghks = new GlobalHotkey[GHKS_MAX];
             for(int i = 0; i < GHKS_MAX; i++)
             {
                 ghks[i] = new GlobalHotkey(GlobalHotkey.ALT + GlobalHotkey.SHIFT, Keys.D0 + i, this);
                 ghks[i].Register();
             }
-            // make instance
-            memoForm = new MemoForm[MEMO_MAX];
+            // Make shared instance
+            Variables.init();
         }
 
         private void ImgUp_Resize(object sender, EventArgs e)
@@ -90,6 +89,28 @@ namespace ImgUp
             System.Diagnostics.Process.Start("https://github.com/leGWANG/ImgUp");
         }
 
+        private void notifyIcon_cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string clickedItem = e.ClickedItem.ToString();
+            switch (clickedItem)
+            {
+                case "Save":
+                    cms_save_clicked();
+                    break;
+
+                case "HotKey":
+                    cms_hk_clicked();
+                    break;
+
+                case "Exit":
+                    cms_exit_clicked();
+                    break;
+
+                default:
+                    break;
+            }     
+        }
+
         private void cms_save_clicked()
         {
 
@@ -103,31 +124,6 @@ namespace ImgUp
         private void cms_exit_clicked()
         {
             this.Close();
-        }
-
-        private void notifyIcon_cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            string clickedItem = e.ClickedItem.ToString();
-            switch (clickedItem)
-            {
-                case "Save":
-                    Console.WriteLine(clickedItem);
-                    cms_save_clicked();
-                    break;
-
-                case "HotKey":
-                    Console.WriteLine(clickedItem);
-                    cms_hk_clicked();
-                    break;
-
-                case "Exit":
-                    Console.WriteLine(clickedItem);
-                    cms_exit_clicked();
-                    break;
-
-                default:
-                    break;
-            }     
         }
     }
 }
