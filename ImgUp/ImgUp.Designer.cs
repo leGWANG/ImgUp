@@ -61,35 +61,35 @@ namespace ImgUp
             this.toolStripSeparator2,
             this.mainFormCmsItem_exit});
             this.notifyIcon_cms.Name = "notifyIcon_cms";
-            this.notifyIcon_cms.Size = new System.Drawing.Size(181, 104);
+            this.notifyIcon_cms.Size = new System.Drawing.Size(114, 82);
             this.notifyIcon_cms.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.notifyIcon_cms_ItemClicked);
             // 
             // mainFormCmsItem_save
             // 
             this.mainFormCmsItem_save.Name = "mainFormCmsItem_save";
-            this.mainFormCmsItem_save.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_save.Size = new System.Drawing.Size(113, 22);
             this.mainFormCmsItem_save.Text = "Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
             // 
             // mainFormCmsItem_hotkey
             // 
             this.mainFormCmsItem_hotkey.Name = "mainFormCmsItem_hotkey";
-            this.mainFormCmsItem_hotkey.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_hotkey.Size = new System.Drawing.Size(113, 22);
             this.mainFormCmsItem_hotkey.Text = "HotKey";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
             // 
             // mainFormCmsItem_exit
             // 
             this.mainFormCmsItem_exit.Name = "mainFormCmsItem_exit";
-            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(113, 22);
             this.mainFormCmsItem_exit.Text = "Exit";
             // 
             // ImgUp_pb

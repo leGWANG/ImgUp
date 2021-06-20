@@ -1,4 +1,6 @@
-﻿namespace ImgUp
+﻿using System;
+
+namespace ImgUp
 {
     static class Variables
     {
@@ -20,6 +22,7 @@
         {
             lock(syncLock[index])
             {
+                if(memoForms[index].IsDisposed) memoForms[index] = new MemoForm(index);
                 return memoForms[index];
             }
         }

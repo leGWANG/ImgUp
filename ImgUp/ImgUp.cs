@@ -7,7 +7,6 @@ namespace ImgUp
     public partial class ImgUp : Form
     {
         private const int GHKS_MAX = 10;
-        private const int MEMO_MAX = 10;
         private GlobalHotkey[] ghks;
         
         public ImgUp()
@@ -17,20 +16,28 @@ namespace ImgUp
 
         private void memoForm_Load(int key)
         {
-            Image image = Clipboard.GetImage();
+            int index = key - (int)Keys.D0;
+            MemoForm mf = Variables.GetMemo(index);
 
-            if (image != null)
+            if (mf.isHided())
             {
-                int index = key - (int)Keys.D0;
-                MemoForm mf = Variables.GetMemo(index);
+                mf.unHide();
+            }
+            else
+            {
+                Image image = Clipboard.GetImage();
 
-                if (mf.BackgroundImage != null) mf.BackgroundImage.Dispose();
+                if (image != null)
+                {
+                    if (mf.BackgroundImage != null) mf.BackgroundImage.Dispose();
 
-                mf.BackgroundImage = image;
-                mf.Width = image.Width;
-                mf.Height = image.Height;
+                    mf.BackgroundImage = image;
+                    mf.Width = image.Width;
+                    mf.Height = image.Height;
 
-                if (!mf.Visible) mf.Show();
+                    if (!mf.Visible) mf.Show();
+                    if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
+                }
             }
         }
 
