@@ -35,20 +35,40 @@ namespace ImgUp
                     mf.Width = image.Width;
                     mf.Height = image.Height;
 
-                    if (!mf.Visible) mf.Show();
+                    if (!mf.Visible) mf.Visible = true;
                     if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
+                    
+                    mf.Activate();
+                }
+            }
+        }
+        private void allToFront()
+        {
+            int memoMax = Variables.MEMO_MAX;
+            for(int i = 0; i < memoMax; i++)
+            {
+                MemoForm mf = Variables.GetMemo(i);
+
+                if (mf.Visible)
+                {
+                    if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
+                    mf.Activate();
                 }
             }
         }
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == GlobalHotkey.WM_HOTKEY_MSG_ID)
+            if (m.Msg == GlobalHotkey.WM_HOTKEY)
             {
                 Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
                 if(key >= Keys.D0 && key <= Keys.D9)
                 {
                     memoForm_Load((int)key);
+                }
+                else if(key == Keys.S)
+                {
+                    allToFront();
                 }
             }
             base.WndProc(ref m);
@@ -60,9 +80,13 @@ namespace ImgUp
             ghks = new GlobalHotkey[GHKS_MAX];
             for(int i = 0; i < GHKS_MAX; i++)
             {
-                ghks[i] = new GlobalHotkey(GlobalHotkey.ALT + GlobalHotkey.SHIFT, Keys.D0 + i, this);
+                ghks[i] = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.D0 + i, this);
                 ghks[i].Register();
             }
+
+            GlobalHotkey ghk_atf = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.S, this);
+            ghk_atf.Register();
+            
             // Make shared instance
             Variables.init();
         }
@@ -101,16 +125,12 @@ namespace ImgUp
             string clickedItem = e.ClickedItem.ToString();
             switch (clickedItem)
             {
-                case "Save":
-                    cms_save_clicked();
-                    break;
-
-                case "HotKey":
-                    cms_hk_clicked();
+                case "Save All":
+                    mainForm_Cms_SaveAll();
                     break;
 
                 case "Exit":
-                    cms_exit_clicked();
+                    mainForm_Cms_Exit();
                     break;
 
                 default:
@@ -118,17 +138,12 @@ namespace ImgUp
             }     
         }
 
-        private void cms_save_clicked()
+        private void mainForm_Cms_SaveAll()
         {
 
         }
 
-        private void cms_hk_clicked()
-        {
-
-        }
-
-        private void cms_exit_clicked()
+        private void mainForm_Cms_Exit()
         {
             this.Close();
         }

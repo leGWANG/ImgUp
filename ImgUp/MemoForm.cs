@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ImgUp
@@ -8,6 +10,7 @@ namespace ImgUp
     {
         private int index = -1;
         private bool isHide = false;
+        private bool isSaving = false;
         private const int RESIZE_HANDLE_SIZE = 10;
 
         // When the cursor moves, when a mouse button is pressed or released, or in response to a call to a function such as WindowFromPoint.
@@ -37,6 +40,17 @@ namespace ImgUp
         {
             this.isHide = false;
             this.Visible = true;
+            this.Activate();
+        }
+
+        public void imageSave()
+        {
+            isSaving = true;
+
+            string fileName = "\\memo_" + index.ToString() + ".png";
+            this.BackgroundImage.Save(Application.StartupPath + fileName, ImageFormat.Png);
+
+            isSaving = false;
         }
 
         protected override void WndProc(ref Message m)
@@ -89,13 +103,13 @@ namespace ImgUp
                 case "Save Image":
                     memoForm_Cms_SaveImage();
                     break;
+                
+                case "Hide":
+                    memoForm_Cms_Hide();
+                    break;
 
                 case "Erase":
                     memoForm_Cms_Erase();
-                    break;
-
-                case "Hide":
-                    memoForm_Cms_Hide();
                     break;
 
                 default:
@@ -111,7 +125,8 @@ namespace ImgUp
 
         private void memoForm_Cms_SaveImage()
         {
-
+            Thread thread = new Thread(new ThreadStart(imageSave));
+            thread.Start();
         }
 
         private void memoForm_Cms_Minimize()
@@ -120,16 +135,19 @@ namespace ImgUp
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void memoForm_Cms_Erase()
-        {
-            this.BackgroundImage.Dispose();
-            this.Dispose();
-        }
-
         private void memoForm_Cms_Hide()
         {
             this.isHide = true;
             this.Visible = false;
+        }
+
+        private void memoForm_Cms_Erase()
+        {
+            if (!isSaving)
+            {
+                this.BackgroundImage.Dispose();
+                this.Dispose();
+            }   
         }
     }
 }

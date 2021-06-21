@@ -11,16 +11,16 @@ namespace ImgUp
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        //----------CONSTANTS----------//
-        //modifiers
-        public const int NOMOD = 0x0000;
-        public const int ALT = 0x0001;
-        public const int CTRL = 0x0002;
-        public const int SHIFT = 0x0004;
-        public const int WIN = 0x0008;
-        //windows message id for hotkey
-        public const int WM_HOTKEY_MSG_ID = 0x0312;
-        //-----------------------------//
+        // Either ALT key was held down.
+        public const int MOD_ALT = 0x0001;
+        // Either CTRL key was held down.
+        public const int MOD_CONTROL = 0x0002;
+        // Either SHIFT key was held down.
+        public const int MOD_SHIFT = 0x0004;
+        // Either WINDOWS key was held down.
+        public const int MOD_WIN = 0x0008;
+        // When the user presses a hot key registered by the RegisterHotKey function.
+        public const int WM_HOTKEY = 0x0312;
 
         private int modifier;
         private int key;

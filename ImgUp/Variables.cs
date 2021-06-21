@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ImgUp
+﻿namespace ImgUp
 {
     static class Variables
     {
