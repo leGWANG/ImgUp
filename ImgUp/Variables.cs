@@ -5,7 +5,7 @@
         public const int MEMO_MAX = 10;
 
         private static readonly object[] syncLock = new object[MEMO_MAX];
-        public static MemoForm[] memoForms = new MemoForm[MEMO_MAX];
+        private static MemoForm[] memoForms = new MemoForm[MEMO_MAX];
         
         public static void init()
         {

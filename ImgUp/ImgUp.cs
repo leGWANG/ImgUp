@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ImgUp
@@ -7,11 +8,62 @@ namespace ImgUp
     public partial class ImgUp : Form
     {
         private const int GHKS_MAX = 10;
+        private int memoMax = -1;
+
         private GlobalHotkey[] ghks;
         
         public ImgUp()
         {
             InitializeComponent();
+        }
+
+        private void ImgUp_Load(object sender, EventArgs e)
+        {
+            // Register hotkeys
+            ghks = new GlobalHotkey[GHKS_MAX];
+            for(int i = 0; i < GHKS_MAX; i++)
+            {
+                ghks[i] = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.D0 + i, this);
+                ghks[i].Register();
+            }
+
+            GlobalHotkey ghk_atf = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.S, this);
+            ghk_atf.Register();
+
+            // Make shared instance
+            Variables.init();
+            memoMax = Variables.MEMO_MAX;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == GlobalHotkey.WM_HOTKEY)
+            {
+                Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+                if (key >= Keys.D0 && key <= Keys.D9)
+                {
+                    memoForm_Load((int)key);
+                }
+                else if (key == Keys.S)
+                {
+                    allToFront();
+                }
+            }
+            base.WndProc(ref m);
+        }
+
+        private void allToFront()
+        {
+            for (int i = 0; i < memoMax; i++)
+            {
+                MemoForm mf = Variables.GetMemo(i);
+
+                if (mf.Visible)
+                {
+                    if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
+                    mf.Activate();
+                }
+            }
         }
 
         private void memoForm_Load(int key)
@@ -29,66 +81,14 @@ namespace ImgUp
 
                 if (image != null)
                 {
-                    if (mf.BackgroundImage != null) mf.BackgroundImage.Dispose();
-
-                    mf.BackgroundImage = image;
-                    mf.Width = image.Width;
-                    mf.Height = image.Height;
+                    mf.setMemo(image);
 
                     if (!mf.Visible) mf.Visible = true;
                     if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
-                    
+
                     mf.Activate();
                 }
             }
-        }
-        private void allToFront()
-        {
-            int memoMax = Variables.MEMO_MAX;
-            for(int i = 0; i < memoMax; i++)
-            {
-                MemoForm mf = Variables.GetMemo(i);
-
-                if (mf.Visible)
-                {
-                    if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
-                    mf.Activate();
-                }
-            }
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == GlobalHotkey.WM_HOTKEY)
-            {
-                Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-                if(key >= Keys.D0 && key <= Keys.D9)
-                {
-                    memoForm_Load((int)key);
-                }
-                else if(key == Keys.S)
-                {
-                    allToFront();
-                }
-            }
-            base.WndProc(ref m);
-        }
-
-        private void ImgUp_Load(object sender, EventArgs e)
-        {
-            // Register hotkeys
-            ghks = new GlobalHotkey[GHKS_MAX];
-            for(int i = 0; i < GHKS_MAX; i++)
-            {
-                ghks[i] = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.D0 + i, this);
-                ghks[i].Register();
-            }
-
-            GlobalHotkey ghk_atf = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.S, this);
-            ghk_atf.Register();
-            
-            // Make shared instance
-            Variables.init();
         }
 
         private void ImgUp_Resize(object sender, EventArgs e)
@@ -140,7 +140,13 @@ namespace ImgUp
 
         private void mainForm_Cms_SaveAll()
         {
+            for (int i = 0; i < memoMax; i++)
+            {
+                MemoForm mf = Variables.GetMemo(i);
 
+                Thread thread = new Thread(new ThreadStart(mf.imageSave));
+                thread.Start();
+            }
         }
 
         private void mainForm_Cms_Exit()

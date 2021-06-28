@@ -34,10 +34,10 @@ namespace ImgUp
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIcon_cms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mainFormCmsItem_SaveAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainFormCmsItem_HotKeys = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormCmsItem_HkMemo = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormCmsItem_HkATF = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainFormCmsItem_exit = new System.Windows.Forms.ToolStripMenuItem();
             this.ImgUp_pb = new System.Windows.Forms.PictureBox();
             this.ImgUp_lb = new System.Windows.Forms.Label();
@@ -67,13 +67,8 @@ namespace ImgUp
             // mainFormCmsItem_SaveAll
             // 
             this.mainFormCmsItem_SaveAll.Name = "mainFormCmsItem_SaveAll";
-            this.mainFormCmsItem_SaveAll.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_SaveAll.Size = new System.Drawing.Size(118, 22);
             this.mainFormCmsItem_SaveAll.Text = "Save All";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // mainFormCmsItem_HotKeys
             // 
@@ -81,7 +76,7 @@ namespace ImgUp
             this.mainFormCmsItem_HkMemo,
             this.mainFormCmsItem_HkATF});
             this.mainFormCmsItem_HotKeys.Name = "mainFormCmsItem_HotKeys";
-            this.mainFormCmsItem_HotKeys.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_HotKeys.Size = new System.Drawing.Size(118, 22);
             this.mainFormCmsItem_HotKeys.Text = "HotKeys";
             // 
             // mainFormCmsItem_HkMemo
@@ -96,10 +91,15 @@ namespace ImgUp
             this.mainFormCmsItem_HkATF.Size = new System.Drawing.Size(209, 22);
             this.mainFormCmsItem_HkATF.Text = "Alt+Shfit+S : All to Front";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(115, 6);
+            // 
             // mainFormCmsItem_exit
             // 
             this.mainFormCmsItem_exit.Name = "mainFormCmsItem_exit";
-            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(180, 22);
+            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(118, 22);
             this.mainFormCmsItem_exit.Text = "Exit";
             // 
             // ImgUp_pb
