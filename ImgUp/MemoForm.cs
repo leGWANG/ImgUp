@@ -10,12 +10,17 @@ namespace ImgUp
     {
         private int index = -1;
         private bool isHide = false;
-        private const int RESIZE_HANDLE_SIZE = 10;
+        // Location
+        private int locationX = Variables.NULL_LOCATION;
+        private int locationY = Variables.NULL_LOCATION;
+        // Opacity
         private const double opacityChange = 0.1;
         private const double opacityMin = 0.1;
         private const double opacityMax = 1.0;
-
+        // Save Lock
         private readonly object saveSyncLock = new object();
+        // RESIZE_HANDLE_SIZE
+        private const int RESIZE_HANDLE_SIZE = 10;
 
         // When the cursor moves, when a mouse button is pressed or released, or in response to a call to a function such as WindowFromPoint.
         private const int WM_NCHITTEST = 0x0084;
@@ -55,9 +60,19 @@ namespace ImgUp
         {
             lock (saveSyncLock)
             {
-                string fileName = "\\memo_" + index.ToString() + ".png";
-                if(this.BackgroundImage != null) this.BackgroundImage.Save(Application.StartupPath + fileName, ImageFormat.Png);
+                string imageName = "\\memo_" + this.index.ToString() + ".png";
+                if(this.BackgroundImage != null) this.BackgroundImage.Save(Application.StartupPath + imageName, ImageFormat.Png);
+
+                locationX = this.Location.X;
+                locationY = this.Location.Y;
+                Variables.SetLocation(this.index, new Point(locationX, locationY));
             }
+        }
+
+        public void setLocation(Point point)
+        {
+            this.locationX = point.X;
+            this.locationY = point.Y;
         }
 
         public void setMemo(Image image)
@@ -91,10 +106,9 @@ namespace ImgUp
 
             if(m.Msg == WM_KEYDOWN)
             {
-                if((Keys)m.WParam == Keys.Q)
+                if ((Keys)m.WParam == Keys.Q)
                 {
                     setOpacity(-opacityChange);
-
                 }
                 else if ((Keys)m.WParam == Keys.W)
                 {
@@ -127,6 +141,13 @@ namespace ImgUp
             this.Dispose();
         }
 
+        private void MemoForm_Move(object sender, EventArgs e)
+        {
+            locationX = this.Location.X;
+            locationY = this.Location.Y;
+            Variables.SetLocation(this.index, new Point(locationX, locationY));
+        }
+
         private void memoForm_cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             string clickedItem = e.ClickedItem.ToString();
@@ -143,7 +164,11 @@ namespace ImgUp
                 case "Save Image":
                     memoForm_Cms_SaveImage();
                     break;
-                
+
+                case "Copy":
+                    memoForm_Cms_Copy();
+                    break;
+
                 case "Hide":
                     memoForm_Cms_Hide();
                     break;
@@ -163,16 +188,21 @@ namespace ImgUp
             this.TopMost = !this.TopMost;
         }
 
-        private void memoForm_Cms_SaveImage()
-        {
-            Thread thread = new Thread(new ThreadStart(imageSave));
-            thread.Start();
-        }
-
         private void memoForm_Cms_Minimize()
         {
             if(memoForm_Cms.Visible) memoForm_Cms.Hide();
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void memoForm_Cms_SaveImage()
+        {
+            Thread imgSaveThread = new Thread(new ThreadStart(imageSave));
+            imgSaveThread.Start();
+        }
+
+        private void memoForm_Cms_Copy()
+        {
+            Clipboard.SetImage(this.BackgroundImage);
         }
 
         private void memoForm_Cms_Hide()

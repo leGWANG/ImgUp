@@ -51,6 +51,7 @@ namespace ImgUp
             this.notifyIcon.ContextMenuStrip = this.notifyIcon_cms;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // notifyIcon_cms
@@ -151,6 +152,7 @@ namespace ImgUp
             this.Name = "ImgUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ImgUp_Load);
+            this.Shown += new System.EventHandler(this.ImgUp_Shown);
             this.Resize += new System.EventHandler(this.ImgUp_Resize);
             this.notifyIcon_cms.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ImgUp_pb)).EndInit();

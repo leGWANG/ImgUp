@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -9,6 +10,8 @@ namespace ImgUp
     {
         private const int GHKS_MAX = 10;
         private int memoMax = -1;
+
+        private bool isLoaded = false;
 
         private GlobalHotkey[] ghks;
         
@@ -66,6 +69,112 @@ namespace ImgUp
             }
         }
 
+        private void savedMemoLoad()
+        {
+            string fileName = @"\imgup.bin";
+            FileStream fs_file = null;
+            BinaryReader br = null;
+
+            try
+            {
+                fs_file = new FileStream(Application.StartupPath + fileName, FileMode.Open, FileAccess.Read);
+                br = new BinaryReader(fs_file);
+            }
+            catch
+            {
+                Console.WriteLine("1");
+            }
+            
+            if(br != null)
+            {
+                for (int i = 0; i < memoMax; i++)
+                {
+                    int temp_x = br.ReadInt32();
+                    int temp_y = br.ReadInt32();
+
+                    if (temp_x != Variables.NULL_LOCATION && temp_y != Variables.NULL_LOCATION)
+                    {
+                        string imageName = "\\memo_" + i.ToString() + ".png";
+                        FileStream fs_image = null;
+
+                        try
+                        {
+                            fs_image = new FileStream(Application.StartupPath + imageName, FileMode.Open, FileAccess.Read);                            
+                        }
+                        catch
+                        {
+                            Console.WriteLine("2");
+                        }
+                        
+                        if (fs_image != null)
+                        {
+                            Rectangle rect = Screen.GetBounds(new Point(temp_x, temp_y));
+                            MemoForm mf = Variables.GetMemo(i);
+
+                            mf.setMemo(Image.FromStream(fs_image));
+                            
+                            mf.Visible = true;
+                            mf.Activate();
+                            Point point;
+
+                            if (temp_x >= rect.X &&
+                                temp_x <= rect.Width &&
+                                temp_y >= rect.Y &&
+                                temp_y <= rect.Height)
+                            {
+                                point = new Point(temp_x, temp_y);
+                            }
+                            else
+                            {
+                                point = new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+                            }
+
+                            mf.Location = point;
+                            mf.setLocation(point);
+
+                            fs_image.Close();
+                            fs_image.Dispose();
+
+                            isLoaded = true;
+                        }
+                    }
+                }
+
+                br.Close();
+                fs_file.Close();
+            }         
+        }
+
+        private void saveLocations()
+        {
+            string fileName = @"\imgup.bin";
+            FileStream fs = null;
+            BinaryWriter bw = null;
+
+            try
+            {
+                fs = new FileStream(Application.StartupPath + fileName, FileMode.Create, FileAccess.Write);
+                bw = new BinaryWriter(fs);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            if (bw != null)
+            {
+                for (int i = 0; i < memoMax; i++)
+                {
+                    Point point = Variables.GetLocation(i);
+                    bw.Write(point.X);
+                    bw.Write(point.Y);
+                }
+
+                bw.Close();
+                fs.Close();
+            }
+        }
+
         private void memoForm_Load(int key)
         {
             int index = key - (int)Keys.D0;
@@ -85,9 +194,22 @@ namespace ImgUp
 
                     if (!mf.Visible) mf.Visible = true;
                     if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
-
+                    
                     mf.Activate();
                 }
+            }
+        }
+
+        private void ImgUp_Shown(object sender, EventArgs e)
+        {
+            savedMemoLoad();
+
+            if (isLoaded)
+            {
+                notifyIcon.BalloonTipIcon = ToolTipIcon.None;
+                notifyIcon.BalloonTipTitle = "Hello";
+                notifyIcon.BalloonTipText = "Loaded saved memo";
+                notifyIcon.ShowBalloonTip(1000);
             }
         }
 
@@ -144,9 +266,12 @@ namespace ImgUp
             {
                 MemoForm mf = Variables.GetMemo(i);
 
-                Thread thread = new Thread(new ThreadStart(mf.imageSave));
-                thread.Start();
+                Thread imgSaveThread = new Thread(new ThreadStart(mf.imageSave));
+                imgSaveThread.Start();
             }
+
+            Thread locSaveThread = new Thread(new ThreadStart(saveLocations));
+            locSaveThread.Start();
         }
 
         private void mainForm_Cms_Exit()

@@ -38,6 +38,7 @@ namespace ImgUp
             this.memoFormCmsItem_Hide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.memoFormCmsItem_Erase = new System.Windows.Forms.ToolStripMenuItem();
+            this.memoFormCmsItem_Copy = new System.Windows.Forms.ToolStripMenuItem();
             this.memoForm_Cms.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,47 +48,54 @@ namespace ImgUp
             this.memoFormCmsItem_TopMost,
             this.memoFormCmsItem_Minimize,
             this.memoFormCmsItem_SaveImage,
+            this.memoFormCmsItem_Copy,
             this.memoFormCmsItem_Hide,
             this.toolStripSeparator1,
             this.memoFormCmsItem_Erase});
             this.memoForm_Cms.Name = "memoForm_cms";
-            this.memoForm_Cms.Size = new System.Drawing.Size(137, 120);
+            this.memoForm_Cms.Size = new System.Drawing.Size(181, 164);
             this.memoForm_Cms.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.memoForm_cms_ItemClicked);
             // 
             // memoFormCmsItem_TopMost
             // 
             this.memoFormCmsItem_TopMost.Name = "memoFormCmsItem_TopMost";
-            this.memoFormCmsItem_TopMost.Size = new System.Drawing.Size(136, 22);
+            this.memoFormCmsItem_TopMost.Size = new System.Drawing.Size(180, 22);
             this.memoFormCmsItem_TopMost.Text = "TopMost";
             // 
             // memoFormCmsItem_Minimize
             // 
             this.memoFormCmsItem_Minimize.Name = "memoFormCmsItem_Minimize";
-            this.memoFormCmsItem_Minimize.Size = new System.Drawing.Size(136, 22);
+            this.memoFormCmsItem_Minimize.Size = new System.Drawing.Size(180, 22);
             this.memoFormCmsItem_Minimize.Text = "Minimize";
             // 
             // memoFormCmsItem_SaveImage
             // 
             this.memoFormCmsItem_SaveImage.Name = "memoFormCmsItem_SaveImage";
-            this.memoFormCmsItem_SaveImage.Size = new System.Drawing.Size(136, 22);
+            this.memoFormCmsItem_SaveImage.Size = new System.Drawing.Size(180, 22);
             this.memoFormCmsItem_SaveImage.Text = "Save Image";
             // 
             // memoFormCmsItem_Hide
             // 
             this.memoFormCmsItem_Hide.Name = "memoFormCmsItem_Hide";
-            this.memoFormCmsItem_Hide.Size = new System.Drawing.Size(136, 22);
+            this.memoFormCmsItem_Hide.Size = new System.Drawing.Size(180, 22);
             this.memoFormCmsItem_Hide.Text = "Hide";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // memoFormCmsItem_Erase
             // 
             this.memoFormCmsItem_Erase.Name = "memoFormCmsItem_Erase";
-            this.memoFormCmsItem_Erase.Size = new System.Drawing.Size(136, 22);
+            this.memoFormCmsItem_Erase.Size = new System.Drawing.Size(180, 22);
             this.memoFormCmsItem_Erase.Text = "Erase";
+            // 
+            // memoFormCmsItem_Copy
+            // 
+            this.memoFormCmsItem_Copy.Name = "memoFormCmsItem_Copy";
+            this.memoFormCmsItem_Copy.Size = new System.Drawing.Size(180, 22);
+            this.memoFormCmsItem_Copy.Text = "Copy";
             // 
             // MemoForm
             // 
@@ -108,6 +116,7 @@ namespace ImgUp
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MemoForm_FormClosing);
+            this.Move += new System.EventHandler(this.MemoForm_Move);
             this.memoForm_Cms.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -122,5 +131,6 @@ namespace ImgUp
         private System.Windows.Forms.ToolStripMenuItem memoFormCmsItem_Erase;
         private System.Windows.Forms.ToolStripMenuItem memoFormCmsItem_Hide;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem memoFormCmsItem_Copy;
     }
 }
