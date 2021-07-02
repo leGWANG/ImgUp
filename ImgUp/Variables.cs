@@ -6,6 +6,7 @@
         public const int NULL_LOCATION = int.MaxValue;
 
         private static readonly object[] syncLock = new object[MEMO_MAX];
+
         private static MemoForm[] memoForms = new MemoForm[MEMO_MAX];
         private static System.Drawing.Point[] memoLocations = new System.Drawing.Point[MEMO_MAX];
         

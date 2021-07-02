@@ -137,8 +137,10 @@ namespace ImgUp
 
         private void MemoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.BackgroundImage.Dispose();
-            this.Dispose();
+            lock(saveSyncLock) {
+                this.BackgroundImage.Dispose();
+                this.Dispose();
+            }
         }
 
         private void MemoForm_Move(object sender, EventArgs e)
@@ -190,18 +192,21 @@ namespace ImgUp
 
         private void memoForm_Cms_Minimize()
         {
+            // Hide ContextMenuStrip
             if(memoForm_Cms.Visible) memoForm_Cms.Hide();
             this.WindowState = FormWindowState.Minimized;
         }
 
         private void memoForm_Cms_SaveImage()
         {
+            // Save only image. It dosen't save location.
             Thread imgSaveThread = new Thread(new ThreadStart(imageSave));
             imgSaveThread.Start();
         }
 
         private void memoForm_Cms_Copy()
         {
+            // Copy to Clipboard.
             Clipboard.SetImage(this.BackgroundImage);
         }
 
@@ -213,6 +218,7 @@ namespace ImgUp
 
         private void memoForm_Cms_Erase()
         {
+            // Wait if image saving thread works.
             lock (saveSyncLock)
             {
                 this.BackgroundImage.Dispose();

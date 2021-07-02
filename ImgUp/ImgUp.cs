@@ -13,7 +13,7 @@ namespace ImgUp
 
         private bool isLoaded = false;
 
-        private GlobalHotkey[] ghks;
+        private GlobalHotkey[] ghks_memo;
         
         public ImgUp()
         {
@@ -23,11 +23,11 @@ namespace ImgUp
         private void ImgUp_Load(object sender, EventArgs e)
         {
             // Register hotkeys
-            ghks = new GlobalHotkey[GHKS_MAX];
+            ghks_memo = new GlobalHotkey[GHKS_MAX];
             for(int i = 0; i < GHKS_MAX; i++)
             {
-                ghks[i] = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.D0 + i, this);
-                ghks[i].Register();
+                ghks_memo[i] = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.D0 + i, this);
+                ghks_memo[i].Register();
             }
 
             GlobalHotkey ghk_atf = new GlobalHotkey(GlobalHotkey.MOD_ALT + GlobalHotkey.MOD_SHIFT, Keys.S, this);
@@ -82,7 +82,7 @@ namespace ImgUp
             }
             catch
             {
-                Console.WriteLine("1");
+                System.Diagnostics.Debug.WriteLine("File imgup.bin read failed.");
             }
             
             if(br != null)
@@ -103,11 +103,12 @@ namespace ImgUp
                         }
                         catch
                         {
-                            Console.WriteLine("2");
+                            System.Diagnostics.Debug.WriteLine("File memo_" + i.ToString() + ".png read failed.");
                         }
                         
                         if (fs_image != null)
                         {
+                            // Handle to multi screens. If point is out of screen, then GetBounds() returns near screen.
                             Rectangle rect = Screen.GetBounds(new Point(temp_x, temp_y));
                             MemoForm mf = Variables.GetMemo(i);
 
@@ -117,6 +118,7 @@ namespace ImgUp
                             mf.Activate();
                             Point point;
 
+                            // If point is in screen.
                             if (temp_x >= rect.X &&
                                 temp_x <= rect.Width &&
                                 temp_y >= rect.Y &&
@@ -124,6 +126,7 @@ namespace ImgUp
                             {
                                 point = new Point(temp_x, temp_y);
                             }
+                            // If point is out of screen, then set point to half of screen.
                             else
                             {
                                 point = new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
@@ -156,9 +159,9 @@ namespace ImgUp
                 fs = new FileStream(Application.StartupPath + fileName, FileMode.Create, FileAccess.Write);
                 bw = new BinaryWriter(fs);
             }
-            catch(Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
+                System.Diagnostics.Debug.WriteLine("File imgup.bin write failed.");
             }
 
             if (bw != null)
@@ -180,6 +183,7 @@ namespace ImgUp
             int index = key - (int)Keys.D0;
             MemoForm mf = Variables.GetMemo(index);
 
+            // If hided, then unhide
             if (mf.isHided())
             {
                 mf.unHide();
@@ -194,14 +198,17 @@ namespace ImgUp
 
                     if (!mf.Visible) mf.Visible = true;
                     if (mf.WindowState == FormWindowState.Minimized) mf.WindowState = FormWindowState.Normal;
-                    
+                    // mf.Show() doesn't show at topmost.
                     mf.Activate();
                 }
+                // If covered up by other programs, then show up
+                else if (mf.BackgroundImage != null) mf.Activate();
             }
         }
 
         private void ImgUp_Shown(object sender, EventArgs e)
         {
+            // If mainform shown, then read saved memo.
             savedMemoLoad();
 
             if (isLoaded)
@@ -215,6 +222,7 @@ namespace ImgUp
 
         private void ImgUp_Resize(object sender, EventArgs e)
         {
+            // If mainform minimized, then show up notifyicon.
             if(this.WindowState == FormWindowState.Minimized)
             {
                 this.Visible = false;
@@ -234,6 +242,7 @@ namespace ImgUp
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
+            // If notifyicon double clikced, then show up mainform.
             ImgUp_Show();
         }
 
@@ -265,11 +274,11 @@ namespace ImgUp
             for (int i = 0; i < memoMax; i++)
             {
                 MemoForm mf = Variables.GetMemo(i);
-
+                // Save image.
                 Thread imgSaveThread = new Thread(new ThreadStart(mf.imageSave));
                 imgSaveThread.Start();
             }
-
+            // Save locations to binary file.
             Thread locSaveThread = new Thread(new ThreadStart(saveLocations));
             locSaveThread.Start();
         }
