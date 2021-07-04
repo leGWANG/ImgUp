@@ -37,6 +37,8 @@ namespace ImgUp
             this.mainFormCmsItem_HotKeys = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormCmsItem_HkMemo = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormCmsItem_HkATF = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainFormCmsItem_HkDeOpa = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainFormCmsItem_HkInOpa = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainFormCmsItem_exit = new System.Windows.Forms.ToolStripMenuItem();
             this.ImgUp_pb = new System.Windows.Forms.PictureBox();
@@ -51,7 +53,6 @@ namespace ImgUp
             this.notifyIcon.ContextMenuStrip = this.notifyIcon_cms;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "notifyIcon";
-            this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // notifyIcon_cms
@@ -62,22 +63,24 @@ namespace ImgUp
             this.toolStripSeparator1,
             this.mainFormCmsItem_exit});
             this.notifyIcon_cms.Name = "notifyIcon_cms";
-            this.notifyIcon_cms.Size = new System.Drawing.Size(119, 76);
+            this.notifyIcon_cms.Size = new System.Drawing.Size(181, 98);
             this.notifyIcon_cms.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.notifyIcon_cms_ItemClicked);
             // 
             // mainFormCmsItem_SaveAll
             // 
             this.mainFormCmsItem_SaveAll.Name = "mainFormCmsItem_SaveAll";
-            this.mainFormCmsItem_SaveAll.Size = new System.Drawing.Size(118, 22);
+            this.mainFormCmsItem_SaveAll.Size = new System.Drawing.Size(180, 22);
             this.mainFormCmsItem_SaveAll.Text = "Save All";
             // 
             // mainFormCmsItem_HotKeys
             // 
             this.mainFormCmsItem_HotKeys.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainFormCmsItem_HkMemo,
-            this.mainFormCmsItem_HkATF});
+            this.mainFormCmsItem_HkATF,
+            this.mainFormCmsItem_HkDeOpa,
+            this.mainFormCmsItem_HkInOpa});
             this.mainFormCmsItem_HotKeys.Name = "mainFormCmsItem_HotKeys";
-            this.mainFormCmsItem_HotKeys.Size = new System.Drawing.Size(118, 22);
+            this.mainFormCmsItem_HotKeys.Size = new System.Drawing.Size(180, 22);
             this.mainFormCmsItem_HotKeys.Text = "HotKeys";
             // 
             // mainFormCmsItem_HkMemo
@@ -92,15 +95,27 @@ namespace ImgUp
             this.mainFormCmsItem_HkATF.Size = new System.Drawing.Size(209, 22);
             this.mainFormCmsItem_HkATF.Text = "Alt+Shfit+S : All to Front";
             // 
+            // mainFormCmsItem_HkDeOpa
+            // 
+            this.mainFormCmsItem_HkDeOpa.Name = "mainFormCmsItem_HkDeOpa";
+            this.mainFormCmsItem_HkDeOpa.Size = new System.Drawing.Size(209, 22);
+            this.mainFormCmsItem_HkDeOpa.Text = "Q : Decrease Opacity";
+            // 
+            // mainFormCmsItem_HkInOpa
+            // 
+            this.mainFormCmsItem_HkInOpa.Name = "mainFormCmsItem_HkInOpa";
+            this.mainFormCmsItem_HkInOpa.Size = new System.Drawing.Size(209, 22);
+            this.mainFormCmsItem_HkInOpa.Text = "W : Increase Opacity";
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(115, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // mainFormCmsItem_exit
             // 
             this.mainFormCmsItem_exit.Name = "mainFormCmsItem_exit";
-            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(118, 22);
+            this.mainFormCmsItem_exit.Size = new System.Drawing.Size(180, 22);
             this.mainFormCmsItem_exit.Text = "Exit";
             // 
             // ImgUp_pb
@@ -174,6 +189,8 @@ namespace ImgUp
         private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_exit;
         private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_HkMemo;
         private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_HkATF;
+        private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_HkDeOpa;
+        private System.Windows.Forms.ToolStripMenuItem mainFormCmsItem_HkInOpa;
     }
 }
 

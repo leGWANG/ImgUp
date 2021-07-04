@@ -101,7 +101,7 @@ namespace ImgUp
             
             if(m.Msg == WM_NCRBUTTONDOWN)
             {
-                if(!memoForm_Cms.Visible) memoForm_Cms.Show(Cursor.Position);
+                if (!memoForm_Cms.Visible) memoForm_Cms.Show(Cursor.Position);
             }
 
             if(m.Msg == WM_KEYDOWN)
@@ -193,7 +193,7 @@ namespace ImgUp
         private void memoForm_Cms_Minimize()
         {
             // Hide ContextMenuStrip
-            if(memoForm_Cms.Visible) memoForm_Cms.Hide();
+            if(memoForm_Cms.Visible) memoForm_Cms.Close();
             this.WindowState = FormWindowState.Minimized;
         }
 
@@ -213,7 +213,7 @@ namespace ImgUp
         private void memoForm_Cms_Hide()
         {
             this.isHide = true;
-            this.Visible = false;
+            this.Visible = false;            
         }
 
         private void memoForm_Cms_Erase()
