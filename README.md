@@ -109,3 +109,4 @@ Settings > System > Notifications & actions, and turn on "Get notifications from
   
 ## Version  
 `v1.0.0.0` first release.  
+`v1.0.0.1` (ContextMenuStrip) memoForm_Cms bug fixed. Prevent duplicate execution.  
