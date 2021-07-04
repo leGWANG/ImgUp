@@ -5,10 +5,10 @@
 ![ImgUp](https://user-images.githubusercontent.com/47464230/124309200-5362c200-dba5-11eb-98fc-b1681c4b291f.gif)  
   
 ## Functions  
-+ Load image from Clipboard and show up. (Memo hotkey : Alt + Shift + 0 ~ 9)   
-: You can capture images with Hotkey (Window key + Shift + S). Then image is saved in Clipboard.  
++ Load image from Clipboard and show up image. **(Memo hotkey : Alt + Shift + 0 ~ 9)**  
+: You can capture images with Windows Hotkey (Window key + Shift + S). Then image is saved in Clipboard.  
 : If Nth memo is already shown, overwriting image.  
-: If Nth memo is Hided, It reshow that memo without overwriting image.  
+: If Nth memo is hided, It reshow that memo without overwriting image.  
   
 + Load saved images and locations. Then images show up when application runs.  
 : Load memo_0 ~ 9.png and imgup.bin at application startup path. It load images only that locations are saved.
@@ -17,12 +17,19 @@
 : Images are saved with PNG(memo_0 ~ 9.png) format and loactions saved with BIN(imgup.bin) format at application startup path.  
   
 + Set opacity of images.  
-: Decrease opacity of images. Minimum opacity is 10%. (Decrease opacity hotkey : Q)  
-: Increase opacity of images. Maximum opacity is 100%. (Increase opacity hotkey : W)  
+: Decrease opacity of images. Minimum opacity is 10%. **(Decrease opacity hotkey : Q)**  
+: Increase opacity of images. Maximum opacity is 100%. **(Increase opacity hotkey : W)**  
   
-+ Bring to front all memos. (AllToFront hotkey : Alt + Shift + S)  
++ Bring to front all memos. **(AllToFront hotkey : Alt + Shift + S)**  
 : Bring all memo windows to front. But if memo is hided, it is ignored.  
-
+  
++ Tray Mode  
+: If MainForm is minimized, Tray Icon shows up.  
+![main_option](https://user-images.githubusercontent.com/47464230/124389257-4b2f9180-dd21-11eb-9074-6bf7c3a87121.png)  
+  `Save All`  Save all images and locations. Locations ares saved only with this.
+  `HotKeys` Show Hotkeys.
+  `Exit` Close the application.
+  
 + Memo Options  
 ![memo_option](https://user-images.githubusercontent.com/47464230/124386350-f1c16580-dd14-11eb-831e-e39be7922629.png)  
   `TopMost` Set memo window topmost.  
@@ -99,3 +106,6 @@ protected override void WndProc(ref Message m)
 My computer with Windows 10, ShowBalloonTip() is not working.  
 It is solved with Windows 10 Setting.  
 Settings > System > Notifications & actions, and turn on "Get notifications from apps and other senders"  
+  
+## Version  
+`v1.0.0.0` first release.  
